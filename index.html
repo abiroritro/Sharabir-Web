@@ -1,74 +1,37 @@
-<script>
-  // Disable right-click context menu
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-  });
-
-  // Disable common DevTools / view-source / save shortcuts
-  document.addEventListener('keydown', function (e) {
-    // F12
-    if (e.key === 'F12') {
-      e.preventDefault();
-    }
-    // Ctrl+Shift+I / J / C (DevTools panels)
-    if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
-      e.preventDefault();
-    }
-    // Ctrl+U (view source)
-    if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
-      e.preventDefault();
-    }
-    // Ctrl+S (save page)
-    if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
-      e.preventDefault();
-    }
-  });
-
-  // Disable text selection (optional — stops easy copy-paste)
-  document.addEventListener('selectstart', function (e) {
-    e.preventDefault();
-  });
-
-  // Disable drag (optional — stops dragging images/text out)
-  document.addEventListener('dragstart', function (e) {
-    e.preventDefault();
-  });
-
-  // Make the whole page non-editable / block inline editing attempts
-  document.designMode = 'off';
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.setAttribute('contenteditable', 'false');
-  });
-
-</script>
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sharabir Online</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Sharabir Online — আধুনিক সেবা কেন্দ্র</title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <script src="https://unpkg.com/lucide@latest">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            dark: '#1e293b',
-                            light: '#f8fafc',
-                            primary: '#6366f1', // Indigo
-                            secondary: '#ec4899', // Pink
-                            accent: '#8b5cf6', // Violet
-                            success: '#10b981', // Emerald
-                            warning: '#f59e0b', // Amber
-                            muted: '#64748b'
+                        void: '#050508',
+                        dark: '#0a0a14',
+                        surface: '#0f0f1e',
+                        neon: {
+                            indigo: '#6366f1',
+                            cyan: '#22d3ee',
+                            purple: '#a855f7',
+                            pink: '#ec4899',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            red: '#ef4444',
+                            whatsapp: '#25D366',
+                            facebook: '#1877F2'
                         }
                     },
                     fontFamily: {
-                        sans: ['Manrope', 'sans-serif']
+                        sans: ['Space Grotesk', 'Hind Siliguri', 'sans-serif'],
+                        bengali: ['Hind Siliguri', 'Space Grotesk', 'sans-serif']
                     },
                     letterSpacing: {
                         tighter: '-0.04em',
@@ -79,37 +42,202 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Manrope', sans-serif; background: #f8fafc; color: #1e293b; }
+        :root {
+            --neon-indigo: #6366f1;
+            --neon-cyan: #22d3ee;
+            --neon-purple: #a855f7;
+            --neon-pink: #ec4899;
+            --neon-emerald: #10b981;
+            --bg: #050508;
+            --surface: #0f0f1e;
+        }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.8);
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #2a2a3e transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050508;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a3e;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d3d5c;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
+            background: var(--bg);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Gradient Background */
+        .bg-aurora {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: #050508;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .bg-aurora::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+            top: -200px;
+            left: -100px;
+            animation: aurora-float-1 20s ease-in-out infinite;
+        }
+        .bg-aurora::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+            bottom: -150px;
+            right: -100px;
+            animation: aurora-float-2 25s ease-in-out infinite;
+        }
+        .aurora-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+            opacity: 0.5;
+        }
+        .aurora-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(34, 211, 238, 0.07);
+            top: 30%;
+            left: 20%;
+            animation: aurora-float-3 18s ease-in-out infinite;
+        }
+        .aurora-orb-2 {
+            width: 350px;
+            height: 350px;
+            background: rgba(236, 72, 153, 0.05);
+            top: 50%;
+            right: 10%;
+            animation: aurora-float-4 22s ease-in-out infinite;
+        }
+        .aurora-orb-3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(99, 102, 241, 0.06);
+            bottom: 20%;
+            left: 40%;
+            animation: aurora-float-5 28s ease-in-out infinite;
+        }
+
+        @keyframes aurora-float-1 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(100px, 80px) scale(1.3);
+            }
+        }
+        @keyframes aurora-float-2 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-80px, -100px) scale(1.2);
+            }
+        }
+        @keyframes aurora-float-3 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(60px, -40px) scale(1.4);
+            }
+            66% {
+                transform: translate(-40px, 60px) scale(0.8);
+            }
+        }
+        @keyframes aurora-float-4 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(-70px, -60px) scale(1.5);
+            }
+        }
+        @keyframes aurora-float-5 {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            50% {
+                transform: translate(50px, -80px) scale(1.2);
+            }
+        }
+
+        /* Grid Overlay */
+        .grid-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: rgba(15, 15, 30, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 1rem;
+            transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.1), 0 0 80px rgba(34, 211, 238, 0.05);
+            transform: translateY(-4px);
+        }
+
+        /* Service Card */
+        .service-card {
+            background: rgba(15, 15, 30, 0.6);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            border-radius: 1rem;
-            transition: all 400ms ease;
-            box-shadow: 0 4px 20px rgba(148, 163, 184, 0.1);
-        }
-        .glass-panel:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.1);
-        }
-
-        .service-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(99, 102, 241, 0.1);
             border-radius: 1.25rem;
             padding: 1.75rem;
             transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             position: relative;
             overflow: hidden;
+            cursor: default;
         }
         .service-card::before {
             content: '';
@@ -117,60 +245,156 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #6366f1, #ec4899, #8b5cf6);
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #22d3ee, #a855f7, #ec4899);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 500ms ease;
         }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 102, 241, 0.08), transparent 60%);
+            opacity: 0;
+            transition: opacity 300ms ease;
+            pointer-events: none;
+        }
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.15), 0 10px 10px -5px rgba(99, 102, 241, 0.04);
-            border-color: transparent;
+            transform: translateY(-6px);
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.12), 0 0 60px rgba(34, 211, 238, 0.04);
         }
         .service-card:hover::before {
             transform: scaleX(1);
         }
-        .service-card:hover .service-icon {
-            transform: scale(1.1) rotate(-5deg);
+        .service-card:hover::after {
+            opacity: 1;
         }
         .service-icon {
             transition: all 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        .service-card:hover .service-icon {
+            transform: scale(1.15) rotate(-5deg);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.4);
+        }
 
-        .fade-enter {
+        /* Glow Text */
+        .glow-text {
+            text-shadow: 0 0 40px rgba(99, 102, 241, 0.5), 0 0 80px rgba(34, 211, 238, 0.3);
+        }
+
+        .text-gradient-neon {
+            background: linear-gradient(135deg, #22d3ee 0%, #6366f1 35%, #a855f7 65%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation */
+        .nav-glass {
+            background: rgba(5, 5, 8, 0.85) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.12);
+            transition: all 300ms ease;
+        }
+        .nav-scrolled {
+            background: rgba(5, 5, 8, 0.95) !important;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 60px rgba(99, 102, 241, 0.06);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 300ms ease;
+            letter-spacing: 0.1em;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22d3ee, #6366f1, #ec4899);
+            transition: width 350ms cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+            box-shadow: 0 0 12px rgba(34, 211, 238, 0.5);
+        }
+        .nav-link:hover {
+            color: #e2e8f0;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Buttons */
+        .btn-neon {
+            background: linear-gradient(135deg, #6366f1, #22d3ee, #a855f7);
+            background-size: 200% 200%;
+            animation: gradient-shift 4s ease infinite;
+            color: white;
+            transition: all 300ms ease;
+            box-shadow: 0 4px 25px rgba(99, 102, 241, 0.4), 0 0 50px rgba(34, 211, 238, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-neon:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 40px rgba(99, 102, 241, 0.6), 0 0 80px rgba(34, 211, 238, 0.25);
+        }
+        .btn-neon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
             opacity: 0;
-            transform: translateY(20px);
+            transition: opacity 300ms ease;
         }
-        .fade-enter-active {
+        .btn-neon:hover::after {
             opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
+        @keyframes gradient-shift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* WhatsApp Float */
         .whatsapp-float {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
+            bottom: 28px;
+            right: 28px;
             z-index: 9999;
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: #25D366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            transition: all 300ms ease;
+            box-shadow: 0 4px 25px rgba(37, 211, 102, 0.5), 0 0 60px rgba(37, 211, 102, 0.25);
+            transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        .whatsapp-float.visible {
+            opacity: 1;
+            transform: scale(1);
         }
         .whatsapp-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+            transform: scale(1.12);
+            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.7), 0 0 100px rgba(37, 211, 102, 0.35);
         }
         .whatsapp-float .tooltip {
             position: absolute;
-            right: 72px;
+            right: 68px;
             background: #1e293b;
             color: #fff;
             padding: 8px 16px;
@@ -179,421 +403,575 @@
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 300ms ease;
-            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 300ms ease;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-weight: 500;
         }
         .whatsapp-float:hover .tooltip {
             opacity: 1;
+            right: 72px;
         }
 
-        .hero-bg {
-            filter: brightness(1.1) contrast(1.1) saturate(1.2);
-            transition: opacity 1s ease-in-out;
-        }
-
+        /* Pulse Animation */
         .pulse-dot {
-            animation: pulse 2s infinite;
+            animation: pulse 2.5s infinite;
+            border-radius: 50%;
         }
         @keyframes pulse {
-            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+        }
+        .pulse-dot-red {
+            animation: pulse-red 2.5s infinite;
+            border-radius: 50%;
+        }
+        @keyframes pulse-red {
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            50% {
+                opacity: 0.6;
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
         }
 
+        /* Marquee */
         .marquee-track {
             display: flex;
-            animation: marquee 30s linear infinite;
+            animation: marquee 35s linear infinite;
+            width: max-content;
+        }
+        .marquee-track:hover {
+            animation-play-state: paused;
         }
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
-        .nav-link {
-            position: relative;
-            transition: color 300ms ease;
+        /* Fade Animation */
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .nav-link::after {
-            content: '';
+        .fade-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero-logo-glow {
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(to right, #6366f1, #ec4899);
-            transition: width 300ms ease;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(34, 211, 238, 0.1) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: glow-pulse 4s ease-in-out infinite;
         }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .nav-link:hover {
-            color: #6366f1;
+        @keyframes glow-pulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 0.7;
+            }
         }
 
+        /* Logo styling */
         .logo-img {
-            height: 42px;
+            height: 40px;
             width: auto;
-            border-radius: 8px;
+            border-radius: 10px;
             object-fit: contain;
+            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
         }
         .logo-img-large {
-            height: 64px;
+            height: 80px;
             width: auto;
-            border-radius: 12px;
+            border-radius: 16px;
             object-fit: contain;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
         }
         .logo-img-footer {
             height: 36px;
             width: auto;
             border-radius: 8px;
             object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
         }
 
-        .hero-logo-glow {
+        /* Shine effect for logo */
+        .logo-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .logo-shine::after {
+            content: '';
             position: absolute;
-            width: 400px;
-            height: 400px;
+            top: -50%;
+            left: -100%;
+            width: 60%;
+            height: 200%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(25deg);
+            animation: shine 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes shine {
+            0%,
+            60% {
+                left: -100%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* Social Button */
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 300ms ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 15, 30, 0.6);
+        }
+        .social-btn:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+            transform: translateY(-2px);
+        }
+        .social-btn.facebook:hover {
+            border-color: #1877F2;
+            box-shadow: 0 0 30px rgba(24, 119, 242, 0.3);
+        }
+        .social-btn.whatsapp:hover {
+            border-color: #25D366;
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.3);
+        }
+
+        /* Schedule */
+        .schedule-item {
+            background: rgba(15, 15, 30, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(99, 102, 241, 0.12);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: all 300ms ease;
+        }
+        .schedule-item:hover {
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(99, 102, 241, 0.5);
+            color: #fff;
+        }
+
+        /* Custom cursor glow */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.06), transparent 70%);
             pointer-events: none;
             z-index: 0;
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-            color: white;
-            transition: all 300ms ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            transition: transform 200ms ease;
         }
     </style>
 </head>
+
 <body class="antialiased">
 
+    <!-- Background layers -->
+    <div class="bg-aurora">
+        <div class="aurora-orb aurora-orb-1"></div>
+        <div class="aurora-orb aurora-orb-2"></div>
+        <div class="aurora-orb aurora-orb-3"></div>
+    </div>
+    <div class="grid-overlay"></div>
+
+    <!-- Cursor Glow (desktop only) -->
+    <div class="cursor-glow hidden md:block" id="cursorGlow"></div>
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between py-5 px-8 md:px-16" style="background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226, 232, 240, 0.8);">
-        <a href="#home" class="flex items-center gap-3">
+    <nav id="mainNav" class="nav-glass fixed top-0 left-0 right-0 z-50 flex items-center justify-between py-4 px-6 md:px-16">
+        <a href="#home" class="flex items-center gap-3 logo-shine">
             <img src="https://i.postimg.cc/SKhtJPCQ/Sharabir-Online-Logo.png" alt="Sharabir Online Logo" class="logo-img">
         </a>
         <div class="hidden md:flex items-center gap-8">
-            <a href="#home" class="nav-link text-xs font-bold uppercase tracking-tight text-slate-600">হোম</a>
-            <a href="#services" class="nav-link text-xs font-bold uppercase tracking-tight text-slate-600">সেবা সমূহ</a>
-            <a href="#about" class="nav-link text-xs font-bold uppercase tracking-tight text-slate-600">আমাদের তথ্য</a>
-            <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-tight text-slate-600">যোগাযোগ</a>
+            <a href="#home" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-400">হোম</a>
+            <a href="#services" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-400">সেবা</a>
+            <a href="#about" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-400">আমাদের সম্পর্কে</a>
+            <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-400">যোগাযোগ</a>
         </div>
-        <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
-           class="hidden md:inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-bold uppercase tracking-tight px-5 py-2.5 rounded-xl transition-all duration-300 shadow-md shadow-green-500/30">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            WhatsApp
-        </a>
-        <button id="mobileMenuBtn" class="md:hidden text-slate-600">
+        <div class="hidden md:flex items-center gap-3">
+            <a href="https://facebook.com/Sharabir.Online" target="_blank" rel="noopener" class="w-9 h-9 bg-[#1877F2]/20 hover:bg-[#1877F2]/40 rounded-xl flex items-center justify-center transition-all duration-300 border border-[#1877F2]/30 hover:border-[#1877F2]/60 hover:shadow-lg hover:shadow-[#1877F2]/20">
+                <svg class="w-4 h-4 text-[#1877F2]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
+               class="btn-neon inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-5 py-2.5 rounded-xl">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+            </a>
+        </div>
+        <button id="mobileMenuBtn" class="md:hidden text-slate-400 hover:text-white transition-colors">
             <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="fixed inset-0 z-40 hidden" style="background: rgba(248, 250, 252, 0.98); backdrop-filter: blur(20px);">
-        <div class="flex flex-col items-center justify-center h-full gap-8">
-            <img src="https://i.postimg.cc/SKhtJPCQ/Sharabir-Online-Logo.png" alt="Sharabir Online Logo" class="logo-img-large mb-4">
-            <a href="#home" class="text-2xl font-semibold text-slate-700 hover:text-indigo-600 transition-colors" onclick="closeMobileMenu()">হোম</a>
-            <a href="#services" class="text-2xl font-semibold text-slate-700 hover:text-indigo-600 transition-colors" onclick="closeMobileMenu()">সেবা সমূহ</a>
-            <a href="#about" class="text-2xl font-semibold text-slate-700 hover:text-indigo-600 transition-colors" onclick="closeMobileMenu()">আমাদের তথ্য</a>
-            <a href="#contact" class="text-2xl font-semibold text-slate-700 hover:text-indigo-600 transition-colors" onclick="closeMobileMenu()">যোগাযোগ</a>
-            <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE" target="_blank"
-               class="mt-4 inline-flex items-center gap-3 bg-[#25D366] text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-green-500/30">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                WhatsApp এ মেসেজ করুন
-            </a>
+    <div id="mobileMenu" class="fixed inset-0 z-[60] hidden" style="background: rgba(5,5,8,0.98); backdrop-filter: blur(25px);">
+        <div class="flex flex-col items-center justify-center h-full gap-6 px-8">
+            <img src="https://i.postimg.cc/SKhtJPCQ/Sharabir-Online-Logo.png" alt="Sharabir Online Logo" class="logo-img-large mb-4 logo-shine">
+            <a href="#home" class="text-xl font-semibold text-slate-300 hover:text-white transition-colors tracking-wide" onclick="closeMobileMenu()">হোম</a>
+            <a href="#services" class="text-xl font-semibold text-slate-300 hover:text-white transition-colors tracking-wide" onclick="closeMobileMenu()">সেবা সমূহ</a>
+            <a href="#about" class="text-xl font-semibold text-slate-300 hover:text-white transition-colors tracking-wide" onclick="closeMobileMenu()">আমাদের তথ্য</a>
+            <a href="#contact" class="text-xl font-semibold text-slate-300 hover:text-white transition-colors tracking-wide" onclick="closeMobileMenu()">যোগাযোগ</a>
+            <div class="flex items-center gap-4 mt-4">
+                <a href="https://facebook.com/Sharabir.Online" target="_blank" rel="noopener"
+                   class="w-12 h-12 bg-[#1877F2]/20 rounded-xl flex items-center justify-center border border-[#1877F2]/40 hover:bg-[#1877F2]/40 transition-all duration-300">
+                    <svg class="w-5 h-5 text-[#1877F2]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://wa.me/8801628303476" target="_blank"
+                   class="w-12 h-12 bg-[#25D366]/20 rounded-xl flex items-center justify-center border border-[#25D366]/40 hover:bg-[#25D366]/40 transition-all duration-300">
+                    <svg class="w-5 h-5 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+            </div>
         </div>
-        <button onclick="closeMobileMenu()" class="absolute top-6 right-8 text-slate-600 hover:text-slate-900 transition-colors">
+        <button onclick="closeMobileMenu()" class="absolute top-6 right-8 text-slate-400 hover:text-white transition-colors">
             <i data-lucide="x" class="w-7 h-7"></i>
         </button>
     </div>
 
     <!-- Hero Section -->
-    <section id="home" class="relative h-screen flex flex-col justify-end overflow-hidden">
-        <img src="https://i.postimg.cc/8cJbydMm/computer-dark-blurry-matched-copy.jpg" alt="Modern Computer Workspace"
-             class="hero-bg absolute inset-0 w-full h-full object-cover">
-        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(248,250,252,0.98) 3%, rgba(248,250,252,0.85) 25%, rgba(248,250,252,0.5) 50%, rgba(248,250,252,0.8) 100%);"></div>
+    <section id="home" class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-12 px-6 md:px-16 lg:px-24">
+        <div class="fade-enter relative z-10" data-animate>
+            <!-- Top badge -->
+            <div class="flex items-center gap-2 mb-8 inline-flex">
+                <span class="w-2.5 h-2.5 bg-neon-emerald rounded-full pulse-dot"></span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">আসসালামু আলাইকুম</span>
+            </div>
 
-        <div class="relative z-10 px-8 md:px-16 lg:px-24 pb-16">
-            <div class="fade-enter" data-animate>
-                <div class="flex items-center gap-2 mb-6">
-                    <span class="w-2.5 h-2.5 bg-brand-success rounded-full pulse-dot"></span>
-                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">আসসালামু আলাইকুম</span>
-                </div>
+            <!-- Logo with glow -->
+            <div class="relative mb-10 inline-block">
+                <div class="hero-logo-glow" style="top: 50%; left: 0; transform: translate(-20%, -50%);"></div>
+                <img src="https://i.postimg.cc/SKhtJPCQ/Sharabir-Online-Logo.png" alt="Sharabir Online Logo"
+                     class="logo-img-large relative z-10 shadow-2xl rounded-2xl logo-shine">
+            </div>
 
-                <!-- Hero Logo -->
-                <div class="relative mb-8">
-                    <div class="hero-logo-glow" style="top: 50%; left: 0; transform: translate(-20%, -50%);"></div>
-                    <img src="https://i.postimg.cc/SKhtJPCQ/Sharabir-Online-Logo.png" alt="Sharabir Online Logo" class="logo-img-large relative z-10 shadow-xl rounded-2xl">
-                </div>
+            <!-- Headline -->
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[0.95] tracking-tighter mb-6 text-white">
+                <span class="text-gradient-neon glow-text">Sharabir</span> Online
+            </h1>
+            <p class="text-slate-400 text-base md:text-lg max-w-xl leading-relaxed mb-10 font-medium">
+                প্রিন্ট, স্ক্যান, সরকারি-বেসরকারি সেবা, অনলাইন আবেদন সহ আপনার সকল
+                কম্পিউটার ভিত্তিক সেবা — এক জায়গায়।
+            </p>
 
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-[0.9] tracking-tighter mb-5 text-slate-900">
-                    <span class="text-gradient">Sharabir</span> Online<br>
-                </h1>
-                <p class="text-slate-600 text-sm md:text-base max-w-md leading-relaxed mb-8 font-medium">
-                    প্রিন্ট, স্ক্যান, সরকারি-বেসরকারি সেবা, অনলাইন আবেদন সহ আপনার সকল কম্পিউটার ভিত্তিক সেবা এক জায়গায়।
-                </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
-                       class="btn-primary inline-flex items-center gap-2 text-xs font-bold uppercase tracking-tight px-6 py-3.5 rounded-xl">
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        এখনই অর্ডার করুন
-                    </a>
-                    <a href="#services" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-indigo-400 text-slate-700 hover:text-indigo-600 text-xs font-bold uppercase tracking-tight px-6 py-3.5 rounded-xl transition-all duration-300 shadow-sm">
-                        সেবাগুলো দেখুন
-                        <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
-                    </a>
-                </div>
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-4">
+                <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
+                   class="btn-neon inline-flex items-center gap-3 text-sm font-bold uppercase tracking-widest px-7 py-4 rounded-xl">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    এখনই অর্ডার করুন
+                </a>
+                <a href="#services"
+                   class="inline-flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/15 hover:border-cyan-400/50 text-slate-300 hover:text-cyan-300 text-sm font-bold uppercase tracking-widest px-7 py-4 rounded-xl transition-all duration-300 backdrop-blur-xl">
+                    সেবাগুলো দেখুন
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <!-- Social links inline -->
+            <div class="flex items-center gap-3 mt-10">
+                <span class="text-xs text-slate-500 uppercase tracking-widest font-semibold">ফলো করুন:</span>
+                <a href="https://facebook.com/Sharabir.Online" target="_blank" rel="noopener"
+                   class="social-btn facebook">
+                    <svg class="w-4 h-4 text-[#1877F2]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    <span class="text-slate-300 text-xs">Facebook</span>
+                </a>
+                <a href="https://wa.me/8801628303476" target="_blank" class="social-btn whatsapp">
+                    <svg class="w-4 h-4 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    <span class="text-slate-300 text-xs">WhatsApp</span>
+                </a>
             </div>
         </div>
 
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
-            <span class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Scroll</span>
-            <div class="w-px h-8 bg-gradient-to-b from-indigo-500 to-transparent"></div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">Scroll</span>
+            <div class="w-px h-10 bg-gradient-to-b from-cyan-400 to-transparent"></div>
         </div>
     </section>
 
     <!-- Marquee Services Bar -->
-    <div class="bg-slate-900 py-3 overflow-hidden">
+    <div class="bg-surface/50 border-y border-white/5 py-4 overflow-hidden">
         <div class="marquee-track">
-            <div class="flex items-center gap-8 px-4 whitespace-nowrap">
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">প্রিন্ট</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">স্ক্যান</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">এনআইডি আবেদন</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">জন্ম নিবন্ধন</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">চাকুরীর আবেদন</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">পুলিশ ক্লিয়ারেন্স</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">এপোষ্টাইল</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">টাইপিং</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">জমির খাজনা</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">জিডি</span>
-                <span class="text-pink-400">✦</span>
+            <div class="flex items-center gap-10 px-6 whitespace-nowrap">
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">প্রিন্ট</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">স্ক্যান</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">এনআইডি আবেদন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">জন্ম নিবন্ধন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">চাকুরীর আবেদন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">পুলিশ ক্লিয়ারেন্স</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">এপোষ্টাইল</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">টাইপিং</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">জমির খাজনা</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">জিডি</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">ই-টিন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">ছবি প্রিন্ট</span>
+                <span class="text-pink-500 text-xs">✦</span>
             </div>
-            <div class="flex items-center gap-8 px-4 whitespace-nowrap">
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">প্রিন্ট</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">স্ক্যান</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">এনআইডি আবেদন</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">জন্ম নিবন্ধন</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">চাকুরীর আবেদন</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">পুলিশ ক্লিয়ারেন্স</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">এপোষ্টাইল</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">টাইপিং</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-indigo-300">জমির খাজনা</span>
-                <span class="text-pink-400">✦</span>
-                <span class="text-sm font-bold uppercase tracking-widest text-purple-300">জিডি</span>
-                <span class="text-pink-400">✦</span>
+            <div class="flex items-center gap-10 px-6 whitespace-nowrap">
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">প্রিন্ট</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">স্ক্যান</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">এনআইডি আবেদন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">জন্ম নিবন্ধন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">চাকুরীর আবেদন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">পুলিশ ক্লিয়ারেন্স</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">এপোষ্টাইল</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">টাইপিং</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">জমির খাজনা</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">জিডি</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-cyan-300">ই-টিন</span>
+                <span class="text-pink-500 text-xs">✦</span>
+                <span class="text-xs font-bold uppercase tracking-[0.25em] text-purple-300">ছবি প্রিন্ট</span>
+                <span class="text-pink-500 text-xs">✦</span>
             </div>
         </div>
     </div>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 px-8 md:px-16 lg:px-24">
-        <div class="fade-enter" data-animate>
+    <section id="services" class="py-24 px-6 md:px-16 lg:px-24">
+        <div class="fade-enter max-w-3xl" data-animate>
             <div class="flex items-center gap-3 mb-4">
-                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">আমাদের সেবাসমূহ</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">সেবাসমূহ</span>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
             </div>
-            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-4 text-slate-900">আমরা যা <span class="text-gradient">প্রদান করি</span></h2>
-            <p class="text-slate-500 text-sm max-w-lg mb-16 leading-relaxed">
-                আপনার দৈনন্দিন কম্পিউটার ও অনলাইন ভিত্তিক সকল প্রয়োজনীয় সেবা সাশ্রয়ী মূল্যে প্রদান করি।
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-4 text-white">আমরা যা <span class="text-gradient-neon">প্রদান করি</span></h2>
+            <p class="text-slate-400 text-sm md:text-base max-w-lg mb-16 leading-relaxed">
+                আপনার দৈনন্দিন কম্পিউটার ও অনলাইন ভিত্তিক সকল প্রয়োজনীয় সেবা — সাশ্রয়ী মূল্যে, নির্ভরযোগ্যতায়।
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="printer" class="w-6 h-6 text-indigo-600"></i>
+                <div class="service-icon w-12 h-12 bg-cyan-500/15 border border-cyan-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="printer" class="w-6 h-6 text-cyan-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">প্রিন্ট ও স্ক্যান</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">কালার ও ব্ল্যাক-হোয়াইট প্রিন্ট, ডকুমেন্ট স্ক্যানিং সেবা।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">প্রিন্ট ও স্ক্যান</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">কালার ও ব্ল্যাক-হোয়াইট প্রিন্ট, ডকুমেন্ট স্ক্যানিং সেবা।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="briefcase" class="w-6 h-6 text-pink-600"></i>
+                <div class="service-icon w-12 h-12 bg-pink-500/15 border border-pink-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="briefcase" class="w-6 h-6 text-pink-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">চাকুরীর আবেদন</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">সরকারি ও বেসরকারি সকল চাকুরীর আবেদন ফর্ম পূরণ ও জমা।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">চাকুরীর আবেদন</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">সরকারি ও বেসরকারি সকল চাকুরীর আবেদন ফর্ম পূরণ ও জমা।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="baby" class="w-6 h-6 text-emerald-600"></i>
+                <div class="service-icon w-12 h-12 bg-emerald-500/15 border border-emerald-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="baby" class="w-6 h-6 text-emerald-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">জন্ম নিবন্ধন</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">জন্ম নিবন্ধন আবেদন ও সংশোধন করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">জন্ম নিবন্ধন</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">জন্ম নিবন্ধন আবেদন ও সংশোধন করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="id-card" class="w-6 h-6 text-purple-600"></i>
+                <div class="service-icon w-12 h-12 bg-purple-500/15 border border-purple-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="id-card" class="w-6 h-6 text-purple-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">জাতীয় পরিচয়পত্র</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">এনআইডি কার্ড নতুন আবেদন, সংশোধন, হারানো এনআইডি ও নাম ঠিকানা দিয়ে এনআইডি।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">জাতীয় পরিচয়পত্র</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">এনআইডি কার্ড নতুন আবেদন, সংশোধন, হারানো এনআইডি ও নাম ঠিকানা দিয়ে এনআইডি।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="shield-check" class="w-6 h-6 text-rose-600"></i>
+                <div class="service-icon w-12 h-12 bg-rose-500/15 border border-rose-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-rose-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">পুলিশ ক্লিয়ারেন্স</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">পুলিশ ক্লিয়ারেন্স সার্টিফিকেট আবেদন সম্পূর্ণ করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">পুলিশ ক্লিয়ারেন্স</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">পুলিশ ক্লিয়ারেন্স সার্টিফিকেট আবেদন সম্পূর্ণ করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="stamp" class="w-6 h-6 text-amber-600"></i>
+                <div class="service-icon w-12 h-12 bg-amber-500/15 border border-amber-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="stamp" class="w-6 h-6 text-amber-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">এপোষ্টাইল আবেদন</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">এপোষ্টাইল অ্যাটেস্টেশন আবেদন প্রক্রিয়া সম্পন্ন করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">এপোষ্টাইল আবেদন</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">এপোষ্টাইল অ্যাটেস্টেশন আবেদন প্রক্রিয়া সম্পন্ন করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="file-check" class="w-6 h-6 text-teal-600"></i>
+                <div class="service-icon w-12 h-12 bg-teal-500/15 border border-teal-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="file-check" class="w-6 h-6 text-teal-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">রিটার্ন সাবমিট</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">আয়কর রিটার্ন সাবমিট করা হয় সঠিকভাবে।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">রিটার্ন সাবমিট</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">আয়কর রিটার্ন সাবমিট করা হয় সঠিকভাবে।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="landmark" class="w-6 h-6 text-orange-600"></i>
+                <div class="service-icon w-12 h-12 bg-orange-500/15 border border-orange-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="landmark" class="w-6 h-6 text-orange-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">জমির খাজনা</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">অনলাইনে জমির খাজনা পরিশোধ সেবা।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">জমির খাজনা</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">অনলাইনে জমির খাজনা পরিশোধ সেবা।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="alert-circle" class="w-6 h-6 text-red-600"></i>
+                <div class="service-icon w-12 h-12 bg-red-500/15 border border-red-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="alert-circle" class="w-6 h-6 text-red-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">থানায় জিডি / অভিযোগ</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">থানায় অভিযোগ বা সাধারণ ডায়েরি (জিডি) করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">থানায় জিডি / অভিযোগ</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">থানায় অভিযোগ বা সাধারণ ডায়েরি (জিডি) করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="search" class="w-6 h-6 text-cyan-600"></i>
+                <div class="service-icon w-12 h-12 bg-cyan-500/15 border border-cyan-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="search" class="w-6 h-6 text-cyan-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">হারানো এনআইডি কার্ড</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">হারানো এনআইডি কার্ড পুনরুদ্ধারে সহায়তা।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">হারানো এনআইডি কার্ড</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">হারানো এনআইডি কার্ড পুনরুদ্ধারে সহায়তা।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-fuchsia-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="file-x" class="w-6 h-6 text-fuchsia-600"></i>
+                <div class="service-icon w-12 h-12 bg-fuchsia-500/15 border border-fuchsia-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="file-x" class="w-6 h-6 text-fuchsia-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">হারানো ই-টিন সার্টিফিকেট</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">হারানো ই-টিন সার্টিফিকেট পুনরুদ্ধার করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">হারানো ই-টিন সার্টিফিকেট</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">হারানো ই-টিন সার্টিফিকেট পুনরুদ্ধার করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="keyboard" class="w-6 h-6 text-violet-600"></i>
+                <div class="service-icon w-12 h-12 bg-violet-500/15 border border-violet-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="keyboard" class="w-6 h-6 text-violet-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">বাংলা / ইংরেজি টাইপিং</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">বাংলা ও ইংরেজি ভাষায় যেকোনো টাইপিং কাজ করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">বাংলা / ইংরেজি টাইপিং</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">বাংলা ও ইংরেজি ভাষায় যেকোনো টাইপিং কাজ করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-lime-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="image" class="w-6 h-6 text-lime-600"></i>
+                <div class="service-icon w-12 h-12 bg-lime-500/15 border border-lime-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="image" class="w-6 h-6 text-lime-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">ছবি প্রিন্ট</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">পাসপোর্ট সাইজ, স্ট্যাম্প সাইজ সহ যেকোনো সাইজের ছবি প্রিন্ট।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">ছবি প্রিন্ট</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">পাসপোর্ট সাইজ, স্ট্যাম্প সাইজ সহ যেকোনো সাইজের ছবি প্রিন্ট।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-sky-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="user-search" class="w-6 h-6 text-sky-600"></i>
+                <div class="service-icon w-12 h-12 bg-sky-500/15 border border-sky-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="user-search" class="w-6 h-6 text-sky-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">নাম ঠিকানা দিয়ে এনআইডি</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">নাম ও ঠিকানা দিয়ে এনআইডি তথ্য বের করা হয়।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">নাম ঠিকানা দিয়ে এনআইডি</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">নাম ও ঠিকানা দিয়ে এনআইডি তথ্য বের করা হয়।</p>
             </div>
 
             <div class="service-card fade-enter" data-animate>
-                <div class="service-icon w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-5">
-                    <i data-lucide="ellipsis" class="w-6 h-6 text-slate-600"></i>
+                <div class="service-icon w-12 h-12 bg-slate-500/15 border border-slate-500/30 rounded-xl flex items-center justify-center mb-5">
+                    <i data-lucide="ellipsis" class="w-6 h-6 text-slate-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-2 text-slate-900">এবং আরো অনেক কিছু</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">অন্যান্য কম্পিউটার ও অনলাইন ভিত্তিক যেকোনো সেবা।</p>
+                <h3 class="text-lg font-bold mb-2 text-white">এবং আরো অনেক কিছু</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">অন্যান্য কম্পিউটার ও অনলাইন ভিত্তিক যেকোনো সেবা।</p>
             </div>
         </div>
     </section>
 
     <!-- About / Why Us Section -->
-    <section id="about" class="py-24 px-8 md:px-16 lg:px-24 bg-white border-y border-slate-100">
+    <section id="about" class="py-24 px-6 md:px-16 lg:px-24 bg-surface/30 border-y border-white/5">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="fade-enter" data-animate>
                 <div class="flex items-center gap-3 mb-4">
-                    <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">কেন আমরা</span>
-                    <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                    <span class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">কেন আমরা</span>
+                    <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
                 </div>
-                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-6 text-slate-900">আপনার বিশ্বস্ত<br><span class="text-gradient">সেবা পার্টনার</span></h2>
-                <p class="text-slate-500 text-sm leading-relaxed mb-8">
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-6 text-white">
+                    আপনার বিশ্বস্ত<br><span class="text-gradient-neon">সেবা পার্টনার</span>
+                </h2>
+                <p class="text-slate-400 text-sm md:text-base leading-relaxed mb-8">
                     মোহাম্মদপুরের আল্লাহ করিম মসজিদ মার্কেটে অবস্থিত Sharabir Online আপনার দৈনন্দিন সকল কম্পিউটার ও অনলাইন সেবার জন্য একটি নির্ভরযোগ্য ঠিকানা। আমরা দ্রুত, সঠিক এবং সাশ্রয়ী মূল্যে সেবা প্রদান করি।
                 </p>
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                        <div class="text-3xl font-extrabold text-indigo-600 mb-1">৮০+</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="glass-card p-5 text-center">
+                        <div class="text-3xl font-extrabold text-cyan-400 mb-1">৮০+</div>
                         <div class="text-xs text-slate-500 uppercase tracking-wider font-bold">সেবার ধরন</div>
                     </div>
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                        <div class="text-3xl font-extrabold text-pink-600 mb-1">৬ দিন</div>
+                    <div class="glass-card p-5 text-center">
+                        <div class="text-3xl font-extrabold text-pink-400 mb-1">৬ দিন</div>
                         <div class="text-xs text-slate-500 uppercase tracking-wider font-bold">সপ্তাহে খোলা</div>
                     </div>
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                        <div class="text-3xl font-extrabold text-purple-600 mb-1">১১.৫ ঘণ্টা</div>
+                    <div class="glass-card p-5 text-center">
+                        <div class="text-3xl font-extrabold text-purple-400 mb-1">১১.৫ ঘণ্টা</div>
                         <div class="text-xs text-slate-500 uppercase tracking-wider font-bold">প্রতিদিন সেবা</div>
                     </div>
-                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
-                        <div class="text-3xl font-extrabold text-emerald-600 mb-1">দ্রুত</div>
+                    <div class="glass-card p-5 text-center">
+                        <div class="text-3xl font-extrabold text-emerald-400 mb-1">দ্রুত</div>
                         <div class="text-xs text-slate-500 uppercase tracking-wider font-bold">সেবা প্রদান</div>
                     </div>
                 </div>
             </div>
             <div class="fade-enter relative" data-animate>
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl">
+                <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
                     <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=700&q=80" alt="Sharabir Online Store"
-                         class="w-full h-[500px] md:h-[600px] object-cover" style="filter: brightness(1.05) contrast(1.1) saturate(1.1);">
-                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(30,41,59,0.6) 0%, transparent 50%);"></div>
+                         class="w-full h-[450px] md:h-[550px] object-cover" style="filter: brightness(0.9) contrast(1.1) saturate(1.2);">
+                    <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(5,5,8,0.7) 0%, transparent 50%);"></div>
                     <div class="absolute bottom-6 left-6 right-6">
-                        <div class="glass-panel p-5 flex items-center gap-4">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="map-pin" class="w-6 h-6 text-indigo-600"></i>
+                        <div class="glass-card p-5 flex items-center gap-4">
+                            <div class="w-12 h-12 bg-cyan-500/20 border border-cyan-500/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-cyan-400"></i>
                             </div>
                             <div>
-                                <div class="text-sm font-bold mb-0.5 text-slate-900">আমাদের ঠিকানা</div>
-                                <div class="text-xs text-slate-600">আল্লাহ করিম মসজিদ মার্কেট, মোহাম্মদপুর, ঢাকা-১২০৭</div>
+                                <div class="text-sm font-bold mb-0.5 text-white">আমাদের ঠিকানা</div>
+                                <div class="text-xs text-slate-400">আল্লাহ করিম মসজিদ মার্কেট, মোহাম্মদপুর, ঢাকা-১২০৭</div>
                             </div>
                         </div>
                     </div>
@@ -603,27 +981,27 @@
     </section>
 
     <!-- Schedule Section -->
-    <section class="py-20 px-8 md:px-16 lg:px-24">
+    <section class="py-20 px-6 md:px-16 lg:px-24">
         <div class="fade-enter max-w-3xl mx-auto text-center" data-animate>
             <div class="flex items-center justify-center gap-3 mb-4">
-                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">খোলার সময়</span>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">খোলার সময়</span>
             </div>
-            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tighter mb-10 text-slate-900">আমরা কখন <span class="text-gradient">খোলা থাকি</span></h2>
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tighter mb-10 text-white">আমরা কখন <span class="text-gradient-neon">খোলা থাকি</span></h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="glass-panel p-5 flex items-center justify-between">
+                <div class="schedule-item flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <i data-lucide="calendar" class="w-5 h-5 text-indigo-600"></i>
-                        <span class="text-sm font-bold text-slate-700">শুক্রবার – বুধবার</span>
+                        <i data-lucide="calendar" class="w-5 h-5 text-cyan-400"></i>
+                        <span class="text-sm font-bold text-slate-200">শুক্রবার – বুধবার</span>
                     </div>
-                    <span class="text-sm text-emerald-600 font-bold">সকাল ১০:০০ – রাত ৯:৩০</span>
+                    <span class="text-sm text-emerald-400 font-bold">সকাল ১০:০০ – রাত ৯:৩০</span>
                 </div>
-                <div class="glass-panel p-5 flex items-center justify-between opacity-70">
+                <div class="schedule-item flex items-center justify-between opacity-60">
                     <div class="flex items-center gap-3">
-                        <i data-lucide="calendar-x" class="w-5 h-5 text-red-500"></i>
-                        <span class="text-sm font-bold text-slate-700">বৃহস্পতিবার</span>
+                        <i data-lucide="calendar-x" class="w-5 h-5 text-red-400"></i>
+                        <span class="text-sm font-bold text-slate-300">বৃহস্পতিবার</span>
                     </div>
-                    <span class="text-sm text-red-500 font-bold">বন্ধ</span>
+                    <span class="text-sm text-red-400 font-bold">বন্ধ</span>
                 </div>
             </div>
 
@@ -635,66 +1013,79 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 px-8 md:px-16 lg:px-24 bg-white border-t border-slate-100">
-        <div class="fade-enter" data-animate>
+    <section id="contact" class="py-24 px-6 md:px-16 lg:px-24 bg-surface/30 border-t border-white/5">
+        <div class="fade-enter max-w-3xl" data-animate>
             <div class="flex items-center gap-3 mb-4">
-                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">যোগাযোগ</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">যোগাযোগ</span>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
             </div>
-            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-4 text-slate-900">যোগাযোগ <span class="text-gradient">করুন</span></h2>
-            <p class="text-slate-500 text-sm max-w-lg mb-16 leading-relaxed">
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tighter mb-4 text-white">যোগাযোগ <span class="text-gradient-neon">করুন</span></h2>
+            <p class="text-slate-400 text-sm md:text-base max-w-lg mb-16 leading-relaxed">
                 যেকোনো প্রশ্ন বা সেবা নিতে নিচের তথ্যে যোগাযোগ করুন অথবা সরাসরি WhatsApp এ মেসেজ পাঠান।
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- WhatsApp -->
             <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
-               class="service-card fade-enter group cursor-pointer" data-animate>
-                <div class="service-icon w-12 h-12 bg-[#25D366]/15 rounded-xl flex items-center justify-center mb-4">
+               class="service-card fade-enter group" data-animate>
+                <div class="service-icon w-12 h-12 bg-[#25D366]/15 border border-[#25D366]/30 rounded-xl flex items-center justify-center mb-4">
                     <svg class="w-6 h-6 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </div>
-                <h3 class="text-lg font-bold mb-1 text-slate-900">WhatsApp</h3>
+                <h3 class="text-lg font-bold mb-1 text-white">WhatsApp</h3>
                 <p class="text-[#25D366] text-sm font-bold mb-2">01628-303476</p>
-                <span class="text-slate-400 text-xs group-hover:text-indigo-600 transition-colors font-semibold">ক্লিক করে মেসেজ করুন →</span>
+                <span class="text-slate-500 text-xs group-hover:text-cyan-400 transition-colors font-semibold">মেসেজ করুন →</span>
             </a>
 
-            <a href="tel:+8801628303476"
-               class="service-card fade-enter group cursor-pointer" data-animate>
-                <div class="service-icon w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-4">
-                    <i data-lucide="phone" class="w-6 h-6 text-indigo-600"></i>
+            <!-- Phone -->
+            <a href="tel:+8801628303476" class="service-card fade-enter group" data-animate>
+                <div class="service-icon w-12 h-12 bg-cyan-500/15 border border-cyan-500/30 rounded-xl flex items-center justify-center mb-4">
+                    <i data-lucide="phone" class="w-6 h-6 text-cyan-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-1 text-slate-900">ফোন কল</h3>
-                <p class="text-slate-600 text-sm font-bold mb-2">01628-303476</p>
-                <span class="text-slate-400 text-xs group-hover:text-indigo-600 transition-colors font-semibold">সরাসরি কল করুন →</span>
+                <h3 class="text-lg font-bold mb-1 text-white">ফোন কল</h3>
+                <p class="text-slate-300 text-sm font-bold mb-2">01628-303476</p>
+                <span class="text-slate-500 text-xs group-hover:text-cyan-400 transition-colors font-semibold">কল করুন →</span>
             </a>
 
-            <a href="mailto:abir5959@gmail.com"
-               class="service-card fade-enter group cursor-pointer" data-animate>
-                <div class="service-icon w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-4">
-                    <i data-lucide="mail" class="w-6 h-6 text-pink-600"></i>
+            <!-- Email -->
+            <a href="mailto:abir5959@gmail.com" class="service-card fade-enter group" data-animate>
+                <div class="service-icon w-12 h-12 bg-pink-500/15 border border-pink-500/30 rounded-xl flex items-center justify-center mb-4">
+                    <i data-lucide="mail" class="w-6 h-6 text-pink-400"></i>
                 </div>
-                <h3 class="text-lg font-bold mb-1 text-slate-900">ইমেইল</h3>
-                <p class="text-slate-600 text-sm font-bold mb-2">abir5959@gmail.com</p>
-                <span class="text-slate-400 text-xs group-hover:text-indigo-600 transition-colors font-semibold">ইমেইল পাঠান →</span>
+                <h3 class="text-lg font-bold mb-1 text-white">ইমেইল</h3>
+                <p class="text-slate-300 text-sm font-bold mb-2">abir5959@gmail.com</p>
+                <span class="text-slate-500 text-xs group-hover:text-cyan-400 transition-colors font-semibold">ইমেইল পাঠান →</span>
+            </a>
+
+            <!-- Facebook -->
+            <a href="https://facebook.com/Sharabir.Online" target="_blank" rel="noopener" class="service-card fade-enter group" data-animate>
+                <div class="service-icon w-12 h-12 bg-[#1877F2]/15 border border-[#1877F2]/30 rounded-xl flex items-center justify-center mb-4">
+                    <svg class="w-6 h-6 text-[#1877F2]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <h3 class="text-lg font-bold mb-1 text-white">Facebook</h3>
+                <p class="text-slate-300 text-sm font-bold mb-2">fb.com/Sharabir.Online</p>
+                <span class="text-slate-500 text-xs group-hover:text-cyan-400 transition-colors font-semibold">ফলো করুন →</span>
             </a>
         </div>
 
+        <!-- CTA Panel -->
         <div class="mt-16 fade-enter" data-animate>
-            <div class="bg-slate-900 p-8 md:p-12 text-center relative overflow-hidden rounded-3xl shadow-xl">
-                <div class="absolute top-0 right-0 w-96 h-96 bg-indigo-600/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-                <div class="absolute bottom-0 left-0 w-96 h-96 bg-pink-600/20 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl"></div>
+            <div class="relative overflow-hidden rounded-3xl shadow-2xl border border-white/10 p-8 md:p-12 text-center"
+                 style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(34,211,238,0.1), rgba(168,85,247,0.12), rgba(236,72,153,0.08));">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-pink-500/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-3xl pointer-events-none"></div>
                 <div class="relative z-10">
-                    <div class="w-16 h-16 bg-[#25D366]/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-[#25D366]/20 border border-[#25D366]/40 rounded-2xl flex items-center justify-center mx-auto mb-6">
                         <svg class="w-8 h-8 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight mb-3 text-white">সরাসরি WhatsApp এ মেসেজ করুন</h3>
                     <p class="text-slate-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
                         আপনার যেকোনো সেবার প্রয়োজন হলে নিচের বাটনে ক্লিক করে সরাসরি আমাদের WhatsApp এ মেসেজ পাঠান। দ্রুত রিপ্লাই দেওয়া হবে।
                     </p>
-                    <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%AF%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
-                       class="inline-flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white text-sm font-bold uppercase tracking-tight px-10 py-4 rounded-xl transition-all duration-300 shadow-lg shadow-[#25D366]/30 hover:scale-105">
+                    <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE%2C%20%E0%A6%86%E0%A6%AE%E0%A6%BF%20%E0%A6%8F%E0%A6%95%E0%A6%9F%E0%A6%BF%20%E0%A6%B8%E0%A6%BE%E0%A6%B0%E0%A7%8D%E0%A6%AD%E0%A6%BF%E0%A6%B8%20%E0%A6%A8%E0%A6%BF%E0%A6%9C%E0%A6%BC%E0%A7%87%20%E0%A6%9A%E0%A6%BE%E0%A6%87" target="_blank"
+                       class="btn-neon inline-flex items-center gap-3 text-sm font-bold uppercase tracking-widest px-10 py-4 rounded-xl">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        এখনই WhatsApp এ মেসেজ করুন
+                        WhatsApp এ মেসেজ করুন
                     </a>
                 </div>
             </div>
@@ -702,16 +1093,16 @@
     </section>
 
     <!-- Map Section -->
-    <section class="py-16 px-8 md:px-16 lg:px-24">
+    <section class="py-16 px-6 md:px-16 lg:px-24">
         <div class="fade-enter" data-animate>
             <div class="flex items-center gap-3 mb-6">
-                <span class="text-xs font-bold uppercase tracking-widest text-indigo-600">লোকেশন</span>
-                <div class="h-px flex-1 bg-gradient-to-r from-indigo-200 to-transparent"></div>
+                <span class="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400">লোকেশন</span>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/30 to-transparent"></div>
             </div>
-            <div class="rounded-3xl overflow-hidden border border-slate-200 shadow-lg" style="height: 350px;">
+            <div class="rounded-3xl overflow-hidden border border-white/10 shadow-2xl" style="height: 350px;">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.263735!2d90.3563!3d23.7586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAllah%20Karim%20Mosque%20Market%2C%20Mohammadpur%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000"
-                    width="100%" height="100%" style="border:0; filter: saturate(1.2);"
+                    width="100%" height="100%" style="border:0; filter: invert(0.9) hue-rotate(180deg) saturate(0.7) brightness(0.9);"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
@@ -719,27 +1110,44 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 py-12 px-8 md:px-16 lg:px-24 mt-12">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <a href="#home" class="flex items-center gap-3">
+    <footer class="bg-surface/50 border-t border-white/5 py-10 px-6 md:px-16 lg:px-24 mt-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <a href="#home" class="flex items-center gap-3 logo-shine">
                 <img src="https://i.postimg.cc/SKhtJPCQ/Sharabir-Online-Logo.png" alt="Sharabir Online Logo" class="logo-img-footer">
             </a>
-            <div class="text-xs text-slate-400 text-center md:text-right leading-relaxed">
+            <div class="flex items-center gap-4">
+                <a href="https://facebook.com/Sharabir.Online" target="_blank" rel="noopener"
+                   class="w-10 h-10 bg-[#1877F2]/15 border border-[#1877F2]/30 hover:bg-[#1877F2]/35 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-[#1877F2]/20">
+                    <svg class="w-5 h-5 text-[#1877F2]" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="https://wa.me/8801628303476" target="_blank"
+                   class="w-10 h-10 bg-[#25D366]/15 border border-[#25D366]/30 hover:bg-[#25D366]/35 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-[#25D366]/20">
+                    <svg class="w-5 h-5 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+                <a href="mailto:abir5959@gmail.com"
+                   class="w-10 h-10 bg-pink-500/15 border border-pink-500/30 hover:bg-pink-500/35 rounded-xl flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/20">
+                    <i data-lucide="mail" class="w-4 h-4 text-pink-400"></i>
+                </a>
+            </div>
+            <div class="text-xs text-slate-500 text-center md:text-right leading-relaxed">
                 আল্লাহ করিম মসজিদ মার্কেট, মোহাম্মদপুর, ঢাকা-১২০৭<br>
-                © 2026 ✔ Sharabir Online
+                © 2026 ✦ Sharabir Online
             </div>
         </div>
     </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE" target="_blank" class="whatsapp-float" id="whatsappFloat" style="opacity:0; transform: scale(0.5);">
+    <a href="https://wa.me/8801628303476?text=%E0%A6%86%E0%A6%B8%E0%A6%B8%E0%A6%BE%E0%A6%B2%E0%A6%BE%E0%A6%AE%E0%A7%81%20%E0%A6%86%E0%A6%B2%E0%A6%BE%E0%A6%87%E0%A6%95%E0%A7%81%E0%A6%AE"
+       target="_blank" class="whatsapp-float" id="whatsappFloat">
         <span class="tooltip">আমাদের মেসেজ করুন!</span>
         <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 
     <script>
+        // Lucide Icons
         lucide.createIcons();
 
+        // Mobile Menu
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
 
@@ -753,17 +1161,16 @@
             document.body.style.overflow = '';
         }
 
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -40px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
+            entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('fade-enter-active');
-                    }, index * 80);
+                    entry.target.classList.add('fade-enter-active');
                     observer.unobserve(entry.target);
                 }
             });
@@ -773,18 +1180,17 @@
             observer.observe(el);
         });
 
+        // WhatsApp float visibility
         const whatsappFloat = document.getElementById('whatsappFloat');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                whatsappFloat.style.opacity = '1';
-                whatsappFloat.style.transform = 'scale(1)';
-                whatsappFloat.style.transition = 'all 400ms cubic-bezier(0.4, 0, 0.2, 1)';
+            if (window.scrollY > 500) {
+                whatsappFloat.classList.add('visible');
             } else {
-                whatsappFloat.style.opacity = '0';
-                whatsappFloat.style.transform = 'scale(0.5)';
+                whatsappFloat.classList.remove('visible');
             }
         });
 
+        // Open status
         function updateOpenStatus() {
             const now = new Date();
             const day = now.getDay();
@@ -804,10 +1210,12 @@
             const text = document.getElementById('openStatusText');
 
             if (isOpen) {
+                dot.className = 'w-3 h-3 rounded-full pulse-dot';
                 dot.style.background = '#10b981';
                 text.style.color = '#10b981';
                 text.textContent = 'এখন খোলা আছে';
             } else {
+                dot.className = 'w-3 h-3 rounded-full pulse-dot-red';
                 dot.style.background = '#ef4444';
                 text.style.color = '#ef4444';
                 text.textContent = 'এখন বন্ধ আছে';
@@ -817,15 +1225,75 @@
         updateOpenStatus();
         setInterval(updateOpenStatus, 60000);
 
-        const nav = document.querySelector('nav');
+        // Nav scroll effect
+        const nav = document.getElementById('mainNav');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.05)';
+            if (window.scrollY > 80) {
+                nav.classList.add('nav-scrolled');
             } else {
-                nav.style.background = 'rgba(248, 250, 252, 0.85)';
-                nav.style.boxShadow = 'none';
+                nav.classList.remove('nav-scrolled');
             }
+        });
+
+        // Cursor glow effect (desktop only)
+        const cursorGlow = document.getElementById('cursorGlow');
+        if (cursorGlow && window.innerWidth > 768) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let glowX = 0;
+            let glowY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateGlow() {
+                glowX += (mouseX - glowX) * 0.08;
+                glowY += (mouseY - glowY) * 0.08;
+                cursorGlow.style.transform = `translate(${glowX - 150}px, ${glowY - 150}px)`;
+                requestAnimationFrame(animateGlow);
+            }
+            animateGlow();
+        }
+
+        // Service card mouse tracking
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', `${x}%`);
+                card.style.setProperty('--mouse-y', `${y}%`);
+            });
+        });
+
+        // Right-click protection (kept from original)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && (e.key === 's' || e.key === 'S')) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
         });
     </script>
 </body>
